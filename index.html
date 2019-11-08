@@ -126,7 +126,110 @@
           <section><h1>Hitos → <em>Pull Requests</em> </h1>
             <img src='img/pr.png' alt='Un PR cualesquiera'>
           </section>
+
+          <section><h1>¿Cumple los criterios de aceptación?</h1>
+            <img src='img/checks.png' alt='Comprobando un PR'>
+          </section>
+
+           <section><h1>Os presento las acciones de GitHub</h1>
+            <img src='img/checks-hl.png' alt='Comprobando un PR'>
+          </section>
+
 	</section>
+
+        <section><!-- Acciones de GitHub -->
+          <section
+          data-background='https://live.staticflickr.com/8103/8659404697_f90841fe3b_c.jpg'><h1>GH
+            Actions: gestión de flujos de trabajo</h1>
+          </section>
+          <section data-background='https://live.staticflickr.com/3601/3325334629_0d0c7df75f_k_d.jpg'>
+            <h1>Configuración en YAML</h1>
+            <h2 class='fragment'>+ runtime Node </h2>
+            <h2 class='fragment'>+ Docker </h2>
+            <aside class='notes'>GH lanza un contenedor para cada
+              comprobación, con un máximo de unas docenas simultáneas.</aside>
+          </section>
+
+          <section><h1>Criterios básicos de aceptación</h1>
+            <img src='img/basico.png' alt='Criterios básicos'>
+            <aside class='notes'>Los criterios básicos son que haya
+            modificado una sola línea de un sólo fichero y que haya
+            borrado lo que no corresponda de la plantilla,
+              specialmente donde pone "bórrame"</aside>
+              
+          </section>
+
+          <section><pre><code>name: "Comprobaciones básicas"
+on: [pull_request]
+jobs:
+  check_pr:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Comprobaciones IV
+      uses: JJ/github-pr-contains-action@releases/v2
+      with:
+        github-token: ${{github.token}}
+        bodyContains: "] Prometo"
+        bodyDoesNotContain: "Borrar"
+        filesChanged: 1</code></pre>
+            <h3 class='fragment' data-code-focus='10'>API de GitHub</h3>
+            <aside class='notes'>Esta es la configuración de la acción
+        básica. Lo interesante es que puede hacer comprobaciones sobre
+        el propio cuerpo del PR, lo que no se puede con sistemas de
+        integración continua habituales. Y necesita saber qué ha
+              cambiado el último commit, así que usa el API de
+              GitHub.</aside>
+            
+          </section>
+        </section>
+
+        <section><!-- Profe = QA engineer -->
+          <section data-background='https://live.staticflickr.com/708/20561091204_f56269506a_k_d.jpg'><h1>¿Qué es el profe?</h1>
+          </section>
+
+          <section
+        data-background='https://live.staticflickr.com/7041/6796986360_2f7832e00b_o_d.jpg'><h1>El
+            que escribe los tests</h1>
+            <aside class='notes'>Y también pone reviews en los PRs en
+              caso de que estén un poco despistados.</aside>
+          </section>
+
+          <section><h1>En <a href='https://github.com/JJ/github-pr-contains-action/blob/master/src/main.ts'>TypeScript</a></h1>
+            <pre><code>//... más cosas
+        const diffContains = core.getInput('diffContains')
+	const diff_url = context.payload.pull_request.diff_url
+	const result = await github.request( diff_url )
+	const files = parse(result.data)
+	const filesChanged = +core.getInput('filesChanged')
+	if ( filesChanged && files.length != filesChanged ) {
+            core.setFailed( "You should change exactly " + filesChanged + " file(s)");
+	}
+// ... más cosas
+            </code></pre>
+            <h3 class='fragment' data-code-focus='4'>Usa el API</h3>
+
+            <aside class='notes'>Que se haga en TypeScript supongo que
+            es porque los ejemplos vienen en ese lenguaje. Esa acción
+            se tiene que compilar a Node, que es lo que se ejecuta. Y
+            la puedes usar directamente, o bien copiarla a una rama,
+            que es la que se va a descargar a la hora de ejecutar la
+            acción. La rama se descarga completa, por lo que tienes
+              que incluir todos los módulos node que necesites</aside>
+          </section>
+
+          <section><h1>Creando un ecosistema</h1>
+            <pre><code>if ( changes.indexOf( diffContains ) < 0 ) {
+            core.setFailed( "The added code does not contain " + diffContains);
+	} else {
+            core.exportVariable('diff',changes )
+            core.setOutput('diff',changes )
+	}
+            </code></pre>
+            <h3 class='fragment' data-code-focus='4'>Exportando variables</h3>
+            <aside class='notes'>Con eso creamos una serie de
+              variables que vamos a usar más adelante</aside>
+          </section>
+        </section>
       </div>
     </div>
     
@@ -143,7 +246,13 @@
        history: true,
        dependencies: [
 	 { src: 'plugin/notes/notes.js', async: true },
-	 { src: 'plugin/highlight/highlight.js', async: true }
+	 { src: 'plugin/highlight/highlight.js', async: true },
+         { src: 'node_modules/reveal-code-focus/reveal-code-focus.js',
+           async: true,
+           callback: function() {
+             RevealCodeFocus();
+           }
+         }
        ]
      });
     </script>
