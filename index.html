@@ -243,6 +243,13 @@ jobs:
           <section><h1>Acciones de GitHub...</h1>
             <img src='img/checks-hl.png' alt='Comprobando un PR'>
             <h2 class='fragment'>... En acción</h2>
+            <aside class='notes'>En los primeros años, usar sólo
+            travis tardaba hasta unos dos minutos. El año pasado
+            introduje un contenedor Docker que redujo los tests hasta
+            aproximadamente unos 45-50 segundos. Este año, con la
+            introducción en paralelo de las acciones de GitHub los
+            tests se vienen a ejecutar en unos 30 segundos. No es una
+              gran mejora, pero es que no hay mucha más capacidad de mejora.</aside>
           </section>
           
 	</section>
@@ -321,6 +328,14 @@ if  ( ghRepoMatch === null ) {
 
         <section>
           <img style='max-height: 800px' src='img/evolucion-entregas.png' alt='evolucion entregas desde 2016'>
+          <aside class='notes'>El sistema de integración continua se
+          introdujo en 2017, aunque sólo desde este año está basado en
+          GitHub Actions. Lo que han permitido las acciones de GitHub
+          es que se haga en paralelo con Travis y entre sí, lo que ha
+          mejorado algo la velocidad; lo que ocurre es que Travis,
+          como mínimo, tarda unos 30 segundos en ejecutar cualquier
+          acción, así que pasar de 45 (como antes) a 30 segundos
+            tampoco es una gran diferencia, sin embargo, es una mejora.</aside>
         </section>
 
         
