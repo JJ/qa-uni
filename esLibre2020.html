@@ -1,0 +1,387 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    
+    <title>esLibre 2020: enseñando informática en 2020</title>
+    
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/extra.css">
+    <link rel="stylesheet" href="css/reveal.css">
+    <link rel="stylesheet" href="css/qa-uni.css">
+    
+    <!-- Theme used for syntax highlighting of code -->
+    <link rel="stylesheet" href="lib/css/monokai.css">
+    
+    <!-- Printing and PDF exports -->
+    <script>
+     var link = document.createElement( 'link' );
+     link.rel = 'stylesheet';
+     link.type = 'text/css';
+     link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+     document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+  </head>
+  <body>
+    <div class="reveal">
+      <div class="slides">
+	<section data-background='https://live.staticflickr.com/4521/38463846041_6813a4981a_k_d.jpg'>
+          <h1>Enseñando informática en 2020</h1>
+          <h2>Una propuesta basada en el software libre</h2>
+          <h1><code>@jjmerelo</code></h1>
+          <h2>Imágenes y texto <code>cc-by-sa</code></h2>
+
+        </section>
+        
+	<section
+      data-background='https://live.staticflickr.com/1708/26710751635_18abe04af6_k_d.jpg'><h1>Aprendiendo informática
+          en el siglo XXI</h1>
+          <aside class='notes'>O aprendiendo en el siglo XIX, versión 3.0</aside>
+        </section>
+
+        <section
+          data-background='https://live.staticflickr.com/4754/26422150708_115afeb99d_k_d.jpg'>
+          <h1>Programando en el siglo XXI</h1>
+          <aside class='notes'>Procesos ágiles, integración continua,
+            calidad y seguridad como preocupación integral</aside>
+        </section>
+
+	<section data-background='https://live.staticflickr.com/7914/46806908884_b4df834428_k_d.jpg'>
+	  <h2><code>@jjmerelo</code> 🞜 <code>github.com/JJ</code></h2>
+	  <h1 class='fragment'><em>Documentator</em> en Raku</h1>
+	  <h2 class='fragment'><em>Profe en UGR</em></h2>
+ 	</section>
+
+	<section data-background='img/clase-magistral.jpg'>
+	  <h2>Enseñanza: asegurar la calidad del aprendizaje del estudiante</h2>
+	</section>
+
+	<section data-background='img/calidad.jpg'>
+	  <h1>Calidad en <em>software</em>: Inherente al proceso</h1>
+	</section>
+
+	<section data-background='https://live.staticflickr.com/4304/35505034790_36084effcd_o_d.jpg'>
+	  <h2>¿Podemos aplicar una gestión de calidad a la enseñanza...</h2>
+	  <h1 class='fragment'>... de la Informática...</h1>
+	  <h3 class='fragment'>... que escale?</h3>
+	  <aside class='notes'>Ah, si pudiéramos ejecutar los programas de los estudiantes a ver si dan el resultado correcto, cuanto tiempo ahorraríamos</aside>
+	</section>
+
+	<section>
+          <section data-background='https://live.staticflickr.com/5113/6952265916_6c4e0a769f_h_d.jpg'><h1>La enseñanza es como el desarrollo de software</h1></section>
+	  <section data-background='img/historias-usuario.jpg'>
+	    <h1>Material de clase: historias de usuario</h1>
+	    <aside class='notes'>El material de clase debe ser las especificaciones para lo que hay que aprender.</aside>
+	  </section>
+	  
+	  <section data-background='https://live.staticflickr.com/1762/28525408487_c3fa460cb1_k_d.jpg'><h1>Proceso de aprendizaje: proyecto</h1>
+	    <aside class='notes'>El estudiante participa en ese proyecto y es el product manager, pero sólo de una parte de ese proyecto.</aside>
+	  </section>
+
+	  <section data-background='https://live.staticflickr.com/915/43234622041_04c8ea5307_k_d.jpg'>
+	    <h1>Entrega: fusión con <em>máster</em></h1>
+	    <h2 class='master'>Evaluación: <em>code review</em>
+	    </h2>
+	  </section>
+
+	  <section data-background='https://live.staticflickr.com/1746/41932481304_46959ca0d0_k_d.jpg'>
+	    <h1>Aprobado: pasar los criterios de aceptación</h1>
+	  </section>
+
+	  <section data-background='img/manos-obra.jpg'>
+	    <h1>¡Manos a la obra!</h1>
+            <aside class='notes'>Hay que ponerlo en práctica. La
+	    teoría está bien, pero si no lo pones en práctica, y
+	      además con un <em>progressive rollout</em>, no sirve
+	      absolutamente de nada.</aside>
+	  </section>
+	</section>
+
+	<section> <!-- Material de clase -->
+	  <section data-background='https://live.staticflickr.com/9/13720853_0e4f9fc2f8_o_d.jpg'>
+            <h1>Material de clase de calidad</h1>
+            <h2 class='fragment'>Y libre, por supuesto...</h2>
+	    <aside class='notes'>Por lo menos, que no tenga faltas de ortografía y que los enlaces se mantengan al día. Gestión de enlaces es manual (porque cuando falla el enlace tienes que decidir qué hacer, pero la ortografía...</aside>
+	  </section>
+
+	  <section data-transition='fade'><h2>La calidad no sólo está
+            en el plato</h2>
+            <img src='img/CC-ci-0.png' alt='Integración continua para la asignatura'></section>
+	    <section data-transition='fade'><h2>Sino en la mesa</h2>
+              <img src='img/CC-ci-1.png' alt='Integración continua en Perl'>
+	    <aside class='notes'>Se usa una biblioteca en Perl, que está publicada en CPAN, <code>Test::Text</code>, que comprueba la ortografía en Markdown. Esta biblioteca la creé para comprobar la ortografía de las novelas que escribía, pero al final resulta bastante útil para todo esto.</aside>
+	    </section>
+
+            <section><h1>Y, por supuesto, en el código de ejemplo</h1>
+              <img src='img/codecov.png' alt='codecov'>
+              <img class='fragment' src='img/tests.png' alt='More tests'>
+            </section>
+
+            <section><pre><code>name: Pasa tests de cobertura
+on: [push]
+jobs:
+  build:
+    name: Cobertura
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - name: Instalación general
+        run: npm install
+      - name: Instala tests y cobertura
+        run: sudo npm install -g jest nyc codecov
+      - name: Ejecuta tests de cobertura
+        run: nyc jest --coverage
+      - name: Crea los informes
+        run: nyc report --reporter=json > coverage/coverage.json
+      - name: Sube los tests
+        run: codecov</code></pre>
+              <h3 class='fragment' data-code-focus='8,14,18'>... en
+                GitHub Actions</h3>
+	    </section>
+
+        </section>
+        
+        <section><!-- Acciones de GitHub -->
+          <section
+          data-background='https://live.staticflickr.com/8103/8659404697_f90841fe3b_c.jpg'><h1>GH
+            Actions: gestión de flujos de trabajo</h1>
+          </section>
+
+          <section
+          data-background='https://live.staticflickr.com/4646/39324554942_93af73ccc5_h_d.jpg'>
+            <h1>En beta hasta la semana que viene.</h1>
+	    <aside class='notes'>El CI de GitHub existe desde hace tiempo, las Actions empezaron a salir en junio o así este año</aside>
+          </section>
+          
+          <section data-background='https://live.staticflickr.com/3601/3325334629_0d0c7df75f_k_d.jpg'>
+            <h1>Configuración en YAML</h1>
+            <h2 class='fragment'>+ runtime Node </h2>
+            <h2 class='fragment'>+ Docker </h2>
+            <aside class='notes'>GH lanza un contenedor para cada
+              comprobación, con un máximo de unas docenas simultáneas. El contenedor usa Ubuntu u otros sistemas operativos, es como una máquina pequeñita de Ubuntu como la de la foto (también tiene Windows y MacOS).</aside>
+          </section>
+
+          <section
+            data-background='https://live.staticflickr.com/7843/46315804004_2ac7e20f8b_k_d.jpg'>
+            <h1>Con un <em>marketplace</em> de acciones</h1>
+          </section>
+          
+          <section data-background='https://live.staticflickr.com/65535/40943471043_5226aa62ad_k_d.jpg'>
+            <h1>Hablando de Raku...</h1>
+            <pre><code>on: [push]
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    name: Tests this
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v1
+    - name: Runs tests
+      id: tests
+      uses: JJ/raku-container-action@master
+            </code></pre>
+            <aside class='notes'>No me iba a ir de la charla sin
+            hablar de Raku... Este contenedor se construye sobre la
+              marcha y te ejecuta una serie de tests...</aside>
+          </section>
+
+          <section><h1>Raku en <a href='https://github.com/JJ/perl6-unicode-security/commit/ea2acf672f767c18fc3e5d121361e4e115747f33/checks?check_suite_id=288540464'>acción</a></h1>
+            <img src='img/raku-gh-action.png' alt='Ejecutándose'>
+          </section>
+        </section>
+        
+	<section><!-- Envíos de los estudiantes -->
+	  <section data-background='https://live.staticflickr.com/3572/3284465155_47f6f53ece_k_d.jpg'><h1>Enseñanza basada en proyecto</h1>
+	    <aside class='notes'>La enseñanza memorística y la
+	  enseñanza basada en plantillas está matando las ganas de
+	  programar de la gente. Con un proyecto ves el avance, y
+	  tienes que usar las herramientas de un sitio de gestión de
+	  fuentes para avanzar el proyecto. La enseñanza, como DevOps, es un proceso de continua mejora, como dice Laura Morillo. La enseñanza de algo debe reflejar lo que enseña. </aside>
+	  </section>
+
+          <section><h1>Hitos → <em>Pull Requests</em> </h1>
+            <img src='img/pr.png' alt='Un PR cualesquiera'>
+          </section>
+
+                    <section><h1>Criterios básicos de aceptación</h1>
+            <img src='img/basico.png' alt='Criterios básicos'>
+            <aside class='notes'>Los criterios básicos son que haya
+            modificado una sola línea de un sólo fichero y que haya
+            borrado lo que no corresponda de la plantilla,
+              specialmente donde pone "bórrame"</aside>
+              
+          </section>
+
+          <section><pre><code>name: "Comprobaciones básicas"
+on: [pull_request]
+jobs:
+  check_pr:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Comprobaciones IV
+      uses: JJ/github-pr-contains-action@releases/v2
+      with:
+        github-token: ${{github.token}}
+        bodyContains: "] Prometo"
+        bodyDoesNotContain: "Borrar"
+        filesChanged: 1</code></pre>
+            <h3 class='fragment' data-code-focus='10'>API de GitHub</h3>
+            <aside class='notes'>Esta es la configuración de la acción
+        básica. Lo interesante es que puede hacer comprobaciones sobre
+        el propio cuerpo del PR, lo que no se puede con sistemas de
+        integración continua habituales. Y necesita saber qué ha
+              cambiado el último commit, así que usa el API de
+              GitHub.</aside>
+            
+          </section>
+
+          
+          <section><h1>¿Cumple los criterios de aceptación?</h1>
+            <img src='img/checks.png' alt='Comprobando un PR'>
+          </section>
+
+          <section><h1>Acciones de GitHub...</h1>
+            <img src='img/checks-hl.png' alt='Comprobando un PR'>
+            <h2 class='fragment'>... En acción</h2>
+            <aside class='notes'>En los primeros años, usar sólo
+            travis tardaba hasta unos dos minutos. El año pasado
+            introduje un contenedor Docker que redujo los tests hasta
+            aproximadamente unos 45-50 segundos. Este año, con la
+            introducción en paralelo de las acciones de GitHub los
+            tests se vienen a ejecutar en unos 30 segundos. No es una
+              gran mejora, pero es que no hay mucha más capacidad de mejora.</aside>
+          </section>
+          
+	</section>
+
+
+        <section><!-- Profe = QA engineer -->
+          <section data-background='https://live.staticflickr.com/708/20561091204_f56269506a_k_d.jpg'><h1>¿Qué es el profe?</h1>
+          </section>
+
+          <section
+        data-background='https://live.staticflickr.com/7041/6796986360_2f7832e00b_o_d.jpg'><h1>El
+            que escribe los tests</h1>
+            <aside class='notes'>Y también pone reviews en los PRs en
+              caso de que estén un poco despistados.</aside>
+          </section>
+
+          <section><h1>En <a href='https://github.com/JJ/github-pr-contains-action/blob/master/src/main.ts'>TypeScript</a></h1>
+            <pre><code>//... más cosas
+        const diffContains = core.getInput('diffContains')
+	const diff_url = context.payload.pull_request.diff_url
+	const result = await github.request( diff_url )
+	const files = parse(result.data)
+	const filesChanged = +core.getInput('filesChanged')
+	if ( filesChanged && files.length != filesChanged ) {
+            core.setFailed( "You should change exactly " + filesChanged + " file(s)");
+	}
+// ... más cosas
+            </code></pre>
+            <h3 class='fragment' data-code-focus='4'>Usa el API</h3>
+
+            <aside class='notes'>Que se haga en TypeScript supongo que
+            es porque los ejemplos vienen en ese lenguaje. Esa acción
+            se tiene que compilar a Node, que es lo que se ejecuta. Y
+            la puedes usar directamente, o bien copiarla a una rama,
+            que es la que se va a descargar a la hora de ejecutar la
+            acción. La rama se descarga completa, por lo que tienes
+              que incluir todos los módulos node que necesites</aside>
+          </section>
+
+          <section><h1>Creando un ecosistema</h1>
+            <pre><code>if ( changes.indexOf( diffContains ) < 0 ) {
+            core.setFailed( "The added code does not contain " + diffContains);
+	} else {
+            core.exportVariable('diff',changes )
+            core.setOutput('diff',changes )
+	}
+            </code></pre>
+            <h3 class='fragment' data-code-focus='4'>Exportando variables</h3>
+            <aside class='notes'>Con eso creamos una serie de
+              variables que vamos a usar más adelante</aside>
+          </section>
+
+          <section><h1>Comprueba proyecto</h1>
+            <pre><code>const diff = process.env.diff as string;
+var ghRepoMatch = /github.com\/(\S+)\/(.+?)(:\s+|\))/.exec(diff)
+if  ( ghRepoMatch === null ) {
+  core.setFailed("There's no repo URL in this diff")
+} else {
+  const user = ghRepoMatch[1]
+  const repo = ghRepoMatch[2]
+  const token = core.getInput('github-token', {required: true})
+  const github = new GitHub(token, {} )
+  const milestones = await github.issues.listMilestonesForRepo( { owner: user, repo: repo } )
+  if ( ! milestones.data.length ) {
+    core.setFailed("There should be at least one milestone")
+  }   // Más cosas aquí...</code></pre>
+            <h3 class='fragment' data-code-focus='1,10'>Usando la
+            acción anterior</h3>
+	    <aside class='notes'><code>diff</code> es la variable que se ha exportado en el paso anterior.</aside>
+          </section>
+        </section>
+
+	<section>
+          <section><h1>CI is coming</h1>
+            <img src='img/snow.gif' alt='que vienen los tests'>
+            <h3>Por Ángel Hódar, estudiante 2019-20</h3>
+          </section>
+
+	  <section  data-transition='fade'><img src='img/mejorando.png' alt='arreglando'></section>
+	  <section  data-transition='fade'><img src='img/mejorando-2.png' alt='arreglando'></section>
+	  <section  data-transition='fade'><img src='img/mejorando-3.png' alt='arreglando'>
+	    <aside class='notes'>Al final, contribuye a la mejora del aprendizaje del estudiante y de su autonomía.</aside>
+</section>
+
+
+        <section>
+          <img style='max-height: 700px' src='img/evolucion-entregas.png' alt='evolucion entregas desde 2016'>
+          <aside class='notes'>El sistema de integración continua se
+          introdujo en 2017, aunque sólo desde este año está basado en
+          GitHub Actions. Lo que han permitido las acciones de GitHub
+          es que se haga en paralelo con Travis y entre sí, lo que ha
+          mejorado algo la velocidad; lo que ocurre es que Travis,
+          como mínimo, tarda unos 30 segundos en ejecutar cualquier
+          acción, así que pasar de 45 (como antes) a 30 segundos
+            tampoco es una gran diferencia, sin embargo, es una mejora. Laura Morillo habla de CALMS, las siglas de la esencia del DevOps. Las asignaturas que doy son esencialmente DevOps, y es conveniente que aplique la filosofía también a las mismas. Y la M de CALMS es Medir, por eso hay que medir lo efectivas que han sido esta s nuevas funcionalidades en producción.
+	  </aside>
+        </section>
+
+        
+        <section
+          data-background='https://live.staticflickr.com/4237/35127299823_9896d7c2ca_k_d.jpg'>
+          <h2>Hey! People! Check your code! C'mon</h2>
+          <h2 class='fragment'>Close your issues now...
+          </h2>
+          <h2 class='fragment'>...Grab that last milestone</h2>
+      </div>
+    </div>
+    
+    <script src="js/reveal.js"></script>
+    
+    <script>
+     // More info about config & dependencies:
+     // - https://github.com/hakimel/reveal.js#configuration
+     // - https://github.com/hakimel/reveal.js#dependencies
+     Reveal.initialize({
+       width: '95%',
+       controls: true,
+       progress: true,
+       history: true,
+       autoPlayMedia: true,
+       dependencies: [
+	 { src: 'plugin/notes/notes.js', async: true },
+	 { src: 'plugin/highlight/highlight.js', async: true },
+         { src: 'plugin/reveal-code-focus/reveal-code-focus.js',
+           async: true,
+           callback: function() {
+             RevealCodeFocus();
+           }
+         }
+       ]
+     });
+    </script>
+  </body>
+</html>
