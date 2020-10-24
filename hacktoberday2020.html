@@ -147,6 +147,16 @@
             <aside class='notes'>Funciona si no tienes que hacerlo tú, claro</aside>
           </section>
 
+          <section
+          data-background='https://live.staticflickr.com/4886/45162921155_f29aaf052e_k_d.jpg'><h1>Lo
+            que está hecho, está hecho</h1>
+            <aside class='notes'>Y ya no hay vuelta atrás. Aunque se
+          permite reenviar, el error ya está hecho y cambios
+          adicionales requieren trabajo adicional por parte del
+              profesor... Mal escalado. Es como la comida. Cuando está
+          hecha, sólo puedes comértela o tirarla. </aside>
+          </section>
+
         </section>
 
         <section>
@@ -226,10 +236,111 @@ install: cpanm Test::More Test::Harness Git File::Slurper JSON Net::Ping TAP::Fo
 script: prove -c</code></pre>
         </section>
 
-        <section>
+        <section><h1>Prueba hasta que funcione.</h1>
+          <img src='img/travis.png' alt='imagen de travis'.>
+        </section>
+        <section><h1>Cambio fundamental: aprende mientras envías</h1>
+          <aside class='notes'>Lo que está muerto, sí se puede matar</aside>
         </section>
 
-	<section data-background='https://live.staticflickr.com/65535/50327948996_f2a87c2d28_k_d.jpg'><h1>Muchas gracias.</h1></section>
+
+        <section><h2>Cambio más fundamental:</h2>
+          <h1 class='fragment'>Aprendizaje como código</h1>
+          <pre><code>    doing("hito 5");
+    my ($deployment_url) = ($README =~ /Despliegue final:\s+(\S+)\b/);
+    if ( $deployment_url ) {
+      diag "☑ Detectada IP de despliegue $deployment_url";
+    } else {
+      diag "✗ Problemas detectando IP de despliegue";
+    }
+    unlike( $deployment_url, qr/(heroku|now)/, "Despliegue efectivamente hecho en IaaS" );
+    isnt( $deployment_url, "", "URL de despliegue hito 5");
+    check_ip($deployment_url);
+    my $status = get "http://$deployment_url/status";
+    isnt( $status, undef, "Despliegue correcto en $deployment_url/status" );
+    my $status_ref = from_json( $status );
+    like ( $status_ref->{'status'}, qr/[Oo][Kk]/, "Status de $deployment_url correcto");
+          </code></pre>
+          <aside class='fragment'>Los tests son las especificaciones
+            de lo que hay que aprender.</aside>
+        </section>
+          </section>
+
+          <section>
+            <section><h1>2019: El escrapear se va a acabar</h1>
+              <h1 class='fragment'>🚫 usar secretos en PRs</h1>
+              <aside class='notes'>GitHub impidió escrapear desde
+                Travis. Se acabó lo que se daba. Tampoco se puede usar
+            el API de GitHub con tu API key porque no se pueden usar
+            "secrets" en PRs. Ni siquiera si es de sólo lectura. Y no
+            te puedes arriesgar a usarlo sin API key porque no sabes
+            cuantas PRs vas a recibir en un rato.</aside>
+            </section>
+
+            <section><h1>Presentando <em>GitHub Actions</em></h1>
+              <pre><code>name: "Comprueba hitos y milestones"
+on:
+  pull_request:
+    paths:
+      - 'proyectos/hito-[1234567].md'
+      - '!objetivos/*.(md|org)'
+
+jobs:
+  obtain-repo:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Extrae URL del repositorio
+        uses: JJ/github-pr-contains-action@releases/v1
+        with:
+          github-token: ${{github.token}}
+          filesChanged: 1
+      - name: Comprueba hitos e issues
+        uses: JJ/repo-in-diff-gh-action@releases/v0
+        with:
+          github-token: ${{github.token}}
+          minMilestones: 3
+              </code></pre>
+              <aside class='notes'>En la primera parte miramos al
+  diff; en la segunda es donde efectivamente comprobamos los
+                milestones y demás.</aside>
+            </section>
+
+            <section><h1><a
+            href='https://github.com/JJ/repo-in-diff-gh-action'>Usando</a>
+              el API de GitHub</h1>
+              <pre><code> const milestones = await github.issues.listMilestonesForRepo( { owner: user, repo: repo } )
+		    if ( ! milestones.data.length ) {
+			core.setFailed("❌ There should be at least one milestone")
+		    }
+		    const minMilestones = +core.getInput('minMilestones')
+		    if ( minMilestones && milestones.data.length < minMilestones ) {
+			core.setFailed( "❌ There should be more than " + minMilestones + " milestone(s)");
+		    }
+		    var totalIssues = 0
+		    var totalClosedIssues = 0
+		    milestones.data.forEach( async function( milestone ) {
+			totalIssues += milestone.open_issues + milestone.closed_issues
+			totalClosedIssues += milestone.closed_issues
+		    })
+		    console.log( "✅ There are " + totalIssues + "
+            issues in your milestones  and " + totalClosedIssues + "
+            closed issues ")</code></pre>
+
+              <aside class='notes'>Escritos en typescript, tienes
+              acceso a una serie de argumentos, pero lo más importante
+              es que puedes acceder fácilmente al API. Cuando empecé
+              con esto estaban en beta limitada, y la forma de
+              documentarse era a base de mirar los fuentes de las
+                actions y buscar en GitHub.</aside>
+            </section>
+
+            <section><h1><a href='https://github.com/JJ/IV-19-20/pull/895'>Comprobando</a> lo comprobable</h1>
+              <img src='img/checks-19-20.png' alt='Usando GH actions +
+                   Travis'>
+            </section>
+          </section>
+
+              <section data-background='https://live.staticflickr.com/65535/50327948996_f2a87c2d28_k_d.jpg'><h1>Muchas gracias.</h1></section>
 
       </div>
     </div>
