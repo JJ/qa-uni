@@ -235,7 +235,8 @@ language: perl
 perl:
   - "5.16"
 before_install:
-install: cpanm Test::More Test::Harness Git File::Slurper JSON Net::Ping TAP::Formatter::Color Term::ANSIColor
+install: cpanm Test::More Test::Harness Git File::Slurper JSON \
+  Net::Ping TAP::Formatter::Color Term::ANSIColor
 script: prove -c</code></pre>
         </section>
 
@@ -249,7 +250,7 @@ script: prove -c</code></pre>
 
         <section><h2>Cambio más fundamental:</h2>
           <h1 class='fragment'>Aprendizaje como código</h1>
-          <pre><code>    doing("hito 5");
+          <pre class='fragment'><code>    doing("hito 5");
     my ($deployment_url) = ($README =~ /Despliegue final:\s+(\S+)\b/);
     if ( $deployment_url ) {
       diag "☑ Detectada IP de despliegue $deployment_url";
@@ -264,7 +265,7 @@ script: prove -c</code></pre>
     my $status_ref = from_json( $status );
     like ( $status_ref->{'status'}, qr/[Oo][Kk]/, "Status de $deployment_url correcto");
           </code></pre>
-          <aside class='fragment'>Los tests son las especificaciones
+          <aside class='notes'>Los tests son las especificaciones
             de lo que hay que aprender.</aside>
         </section>
           </section>
@@ -289,7 +290,6 @@ on:
     paths:
       - 'proyectos/hito-[1234567].md'
       - '!objetivos/*.(md|org)'
-
 jobs:
   obtain-repo:
     runs-on: ubuntu-latest
@@ -312,21 +312,21 @@ jobs:
             <section><h1><a
             href='https://github.com/JJ/repo-in-diff-gh-action'>Usando</a>
               el API de GitHub</h1>
-              <pre><code> const milestones = await github.issues.listMilestonesForRepo( { owner: user, repo: repo } )
-		    if ( ! milestones.data.length ) {
-			core.setFailed("❌ There should be at least one milestone")
-		    }
-		    const minMilestones = +core.getInput('minMilestones')
-		    if ( minMilestones && milestones.data.length < minMilestones ) {
-			core.setFailed( "❌ There should be more than " + minMilestones + " milestone(s)");
-		    }
-		    var totalIssues = 0
-		    var totalClosedIssues = 0
-		    milestones.data.forEach( async function( milestone ) {
-			totalIssues += milestone.open_issues + milestone.closed_issues
-			totalClosedIssues += milestone.closed_issues
-		    })
-		    console.log( "✅ There are " + totalIssues + "
+              <pre><code>const milestones = await github.issues.listMilestonesForRepo( { owner: user, repo: repo } )
+ if ( ! milestones.data.length ) {
+	core.setFailed("❌ There should be at least one milestone")
+ }
+ const minMilestones = +core.getInput('minMilestones')
+ if ( minMilestones && milestones.data.length < minMilestones ) {
+	core.setFailed( "❌ There should be more than " + minMilestones + " milestone(s)");
+ }
+ var totalIssues = 0
+ var totalClosedIssues = 0
+ milestones.data.forEach( async function( milestone ) {
+	totalIssues += milestone.open_issues + milestone.closed_issues
+	totalClosedIssues += milestone.closed_issues
+ })
+ console.log( "✅ There are " + totalIssues + "
             issues in your milestones  and " + totalClosedIssues + "
             closed issues ")</code></pre>
 
