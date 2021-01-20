@@ -57,6 +57,7 @@
           <h1 class='fragment'>Learning objects (and grading) as code</h1>
         </section>
 
+        <section>
         <section><h1>Why?</h1></section>
 
         <section
@@ -67,16 +68,8 @@
             es hacerlo.</aside>
         </section>
 
-        <section data-background='https://live.staticflickr.com/1912/43077933160_a6b5c071b2_k_d.jpg'>
-          <h1>② Learning is a continuous improvement process</h1>
-          <aside class='notes'>It's kaizen, same as the initial idea
-          of extreme programming that eventually led to the testing
-          revolution. Not a big difference</aside>
-
-        </section>
-
         <section
-          data-background='https://live.staticflickr.com/10/12756540_ff7a2a9fe1_o_d.jpg'><h1>③
+          data-background='https://live.staticflickr.com/10/12756540_ff7a2a9fe1_o_d.jpg'><h1>②
           Grading shouldn't constrain learning.</h1>
           <aside class='notes'>Si sólo puedes enseñar (y la gente
           aprender) lo que se puede corregir "a mano", se frena la
@@ -87,13 +80,34 @@
           conoce) como cuantitativo (a los aspectos que uno pueda leer
           exclusivamente).
           </aside>
-          </section>
+        </section>
 
+        <section data-background='https://live.staticflickr.com/1912/43077933160_a6b5c071b2_k_d.jpg'>
+          <h1>③ Learning is a continuous improvement process</h1>
+          <aside class='notes'>It's kaizen, same as the initial idea
+          of extreme programming that eventually led to the testing
+          revolution. Not a big difference</aside>
+        </section>
+
+        <section data-background='https://live.staticflickr.com/5278/5829295284_c1400ce035_k_d.jpg'><h1>④ And grading is a means to an end:
+          <strong>learning</strong></h1>
+          <aside class='notes'>It's not the end of the road. It's a
+          crossroad, where you need to get your wits together and find
+            out if you've reached the learning objectives. At the end
+          of the day, saving precious time you can devote to
+          doomscrolling is cool, but ClassOps are part of a process in
+            which you try to help someone else achieve learnign objectives.</aside>
+          </aside>
+        </section>
+        
+
+        </section>
+        
           <section>
             <section
             data-background='https://live.staticflickr.com/5136/5489474407_8686dbf7d0_k_d.jpg'><h1>Project-based
             learning</h1>
-              <h1 class='fragment'><em>Upside-down</em> class</h1>
+              <h1 class='fragment'><em>Flipped</em> class</h1>
               <h1 class='fragment'>In GitHub</h1>
               <aside class='notes'>Y, por supuesto, hacerlo en GitHub. El hecho de usar GitHub para las
             entregas ya, de por sí, tiene ciertas ventajas: notificación
@@ -104,16 +118,17 @@
                 ejemplo. Sin embargo, 0 tests</aside>
             </section>
 
-            <section><h1>GitHub knows</h1>
-            <h1 class='fragment'>Let GitHub test it</h1>
+            <section>
+              <h1>If GitHub knows</h1>
+              <h1 class='fragment'>Let GitHub test it</h1>
             </section>
 
-          <section><h1>PR checks: Perl FTW</h1>
-            <pre><code>my $repo = Git->repository ( Directory =&gt; '.' );
+            <section><h1>PR checks: Perl FTW</h1>
+              <pre><code>my $repo = Git->repository ( Directory =&gt; '.' );
 my $diff = $repo-&gt;command('diff','HEAD^1','HEAD');
 my $diff_regex = qr/a\/proyectos\/hito-(\d)\.md/;
 my $github;
-
+ 
 SKIP: {
   my ($this_hito) = ($diff =~ $diff_regex);
   skip "No hay envío de proyecto", 5 unless defined $this_hito;  my @files = split(/diff --git/,$diff);
@@ -135,28 +150,32 @@ SKIP: {
           <section><h1>Test until it works</h1>
             <img src='img/travis.png' alt='imagen de travis'>
             <h1 class='fragment'>Big switch: learn while you submit</h1>
-            <aside class='notes'>Lo que está muerto, sí se puede matar</aside>
+            <aside class='notes'>This is how ClassOps helps through
+            the process of continuous improvement. It tells the
+            students, in a non-ambiguous way, if objectives have been
+            achieved or not. This helps them achieve their objectives
+            by being informed where there are and where they should be.<aside>
           </section>
 
 
           <section><h1>Learning (objects) as code</h1>
-          <pre class='fragment'><code>    doing("hito 5");
-    my ($deployment_url) = ($README =~ /Despliegue final:\s+(\S+)\b/);
-    if ( $deployment_url ) {
-      diag "☑ Detectada IP de despliegue $deployment_url";
-    } else {
-      diag "✗ Problemas detectando IP de despliegue";
-    }
-    unlike( $deployment_url, qr/(heroku|now)/, "Despliegue efectivamente hecho en IaaS" );
-    isnt( $deployment_url, "", "URL de despliegue hito 5");
-    check_ip($deployment_url);
-    my $status = get "http://$deployment_url/status";
-    isnt( $status, undef, "Despliegue correcto en $deployment_url/status" );
-    my $status_ref = from_json( $status );
-    like ( $status_ref->{'status'}, qr/[Oo][Kk]/, "Status de $deployment_url correcto");
-          </code></pre>
-          <aside class='notes'>Los tests son las especificaciones
-            de lo que hay que aprender.</aside>
+          <pre class='fragment'><code>    my $prefix = $url_PaaS."/".$recurso->{'nombre'};
+    my $jsoner = new JSON::XS;
+    if ( $metodo eq 'PUT' ) {
+      ok( $recurso->{'IDs'}, "Se incluyen las IDs de los recursos enviados o devueltos" );
+      for my $id ( @{$recurso->{'IDs'}} ) {
+        my $URI = "$prefix/$id";
+        $response = $ua->put( $URI => json => $payload );
+        is( $response->res->code, 201, "Respuesta a la petición $metodo sobre $URI es correcta");
+        my $location = $response->res->headers->location;
+        if ( ok( $location, "«location» $location devuelto" ) ) {
+          my $get_URI = ( $location =~ /http/ )? $location : $url_PaaS.$location;
+          is( $ua->get($get_URI)->res->code, 200, "Se puede bajar el creado $id" );
+        }
+      }
+    } else { #... }</code></pre>
+          <aside class='notes'>This checks if a PUT request to a
+          deployed microservice works according to specs.</aside>
         </section>
 
           <section><h1><em>GitHub Actions</em>: big boost</h1>
@@ -182,7 +201,9 @@ jobs:
           minMilestones: 3</code></pre>
               <aside class='notes'>En la primera parte miramos al
   diff; en la segunda es donde efectivamente comprobamos los
-                milestones y demás.</aside>
+                milestones y demás. It's better, it's faster, and it's
+              free for open source and public repos. So I'm lately
+              moving everything done in Travis here.</aside>
             </section>
 
             <section><h1><a
@@ -214,20 +235,34 @@ jobs:
                 actions y buscar en GitHub.</aside>
             </section>
 
-            <section><h1><a
-              href='https://github.com/JJ/IV-19-20/pull/895'>Checking
-              to hell</a> and back</h1>
-              <img src='img/checks-19-20.png' alt='Usando GH actions +
-                   Travis'>
-            </section>
-
+            <section><h1>If GitHub knows...</h1>
+              <img src='img/checks-20-21.png' alt='pop-up de
+              comprobaciones'>
+              <aside class='notes'>Se rompe el límite de sólo poder
+              corregir lo que uno puede físicamente hacer. Cosas que
+              son imposibles, como comprobar que todos los issues se
+              han cerrado con un commit (o PR), ahora se pueden hacer
+              fácilmente. Y a escala: más estudiantes no te quitan
+              tiempo, y te dejan centrarte en aconsejar al estudiante
+              mejoras en su código o en la forma de presentarlo.</section>
             <section><h1>Speedier tests → better learning</h1>
                <img src='img/pr-speed.png' alt='Velocidad de los
                     tests'>
                <aside class='notes'>No sólo era más rápido, la
                duración era más consistente. En travis es difícil que
                algo tarde menos de 15 segundos, pero se llegaba a una
-                 velocidad bastante buena.</aside>
+                 velocidad bastante buena. Again, this is what we're
+               looking for: learning is a continuous improvement
+               process, just like programming in general. But speed is
+               even more important here, which is why we need to speed
+               stuff up.</aside>
+            </section>
+
+            <section><h1><a
+              href='https://github.com/JJ/IV-19-20/pull/895'>Checking
+              to hell</a> and back</h1>
+              <img src='img/checks-19-20.png' alt='Usando GH actions +
+                   Travis'>
             </section>
 
             <section><h1>Docker FTW</h1>
@@ -270,7 +305,15 @@ ENTRYPOINT prove -I/usr/lib -c</jjmerelo></code></pre>
                           }`;</code></pre>
             </section>
 
-            <section><h1>Students are your customers.</h1>
+            <section
+              data-background='img/grafo-github-actions.png'><h1
+              class='fragment'>Continuously improving ClassOps: ops
+              graph</h1>
+              <aside class='notes'>The quality and quantity of tests
+                needs to improve continuosly too... As well as the speed.</aside>
+            </section>
+
+            <section><h1>Because students are your customers.</h1>
               <img src='img/issue-abierto.png' alt='Contestando un
                    issue'>
               <aside class='notes'>En este caso, también tus
@@ -281,16 +324,6 @@ ENTRYPOINT prove -I/usr/lib -c</jjmerelo></code></pre>
                 Stackoverflow).</aside>
             </section>
 
-            <section><h1>If GitHub knows...</h1>
-              <img src='img/checks-20-21.png' alt='pop-up de
-              comprobaciones'>
-              <aside class='notes'>Se rompe el límite de sólo poder
-              corregir lo que uno puede físicamente hacer. Cosas que
-              son imposibles, como comprobar que todos los issues se
-              han cerrado con un commit (o PR), ahora se pueden hacer
-              fácilmente. Y a escala: más estudiantes no te quitan
-              tiempo, y te dejan centrarte en aconsejar al estudiante
-              mejoras en su código o en la forma de presentarlo.</section>
           </section>
 
           <section>
@@ -306,7 +339,8 @@ ENTRYPOINT prove -I/usr/lib -c</jjmerelo></code></pre>
                 programando, claro.</aside>
             </section>
 
-            <section><h1>Does the student learn more and better with ClassOps?</h1>
+            <section><h1>Do students reach their learning objectives
+              more easily with ClassOps?</h1>
               <h1 class='fragment'>Arguably, <strong>yes</strong></h1>
             </section>
 
@@ -316,7 +350,6 @@ ENTRYPOINT prove -I/usr/lib -c</jjmerelo></code></pre>
               <h1 class='fragment'>Which is what all this is about</h1>
             </section>
           </section>
-
 
           <section
           data-background='https://live.staticflickr.com/65535/50327948996_f2a87c2d28_k_d.jpg'><h1>Thanks
@@ -333,7 +366,6 @@ ENTRYPOINT prove -I/usr/lib -c</jjmerelo></code></pre>
      // - https://github.com/hakimel/reveal.js#dependencies
      Reveal.initialize({
        width: '95%',
-       height: '95%',
        controls: true,
        progress: true,
        history: true,
